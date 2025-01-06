@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find User</title>
+    <script>
+        // This function is triggered when the form is submitted
+        async function handleSearch(event) {
+            event.preventDefault(); // Prevent form submission to reload the page
+            
+            const searchQuery = document.querySelector('input[type="search"]').value; // Get the search query
+            
+            if (!searchQuery) return alert("Please enter a search query!");
+            
+            try {
+                const response = await fetch(`/searchUser?query=${searchQuery}`); // Send the search query to the server
+                const data = await response.json(); // Parse the JSON response
+                
+                // Display the search results
+                const resultsDiv = document.getElementById('searchResults');
+                resultsDiv.innerHTML = ''; // Clear previous results
+                
+                if (data.length > 0) {
+                    data.forEach(user => {
+                        resultsDiv.innerHTML += `<p>${user.firstName} ${user.lastName} - ${user.email}</p>`;
+                    });
+                } else {
+                    resultsDiv.innerHTML = '<p>No users found.</p>';
+                }
+            } catch (error) {
+                console.error('Error during search:', error);
+                alert("An error occurred while searching.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Find User</h1>
+    <form onsubmit="handleSearch(event)">
+        <input type="search" placeholder="Search for a user..." required>
+        <input type="submit" value="Search">
+    </form>
+    
+    <div id="searchResults"></div> <!-- Display search results here -->
+</body>
+</html>
