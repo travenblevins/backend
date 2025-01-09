@@ -1,0 +1,28 @@
+GET http://localhost:3000/users/alice
+
+###
+GET http://localhost:3000/users?userId=bob&whatever=something
+
+###
+POST http://localhost:3000/users/create
+Content-Type: application/json
+
+{
+  "userId": "Jerry",
+  "password": "1234",
+  "firstName": "Jerry",
+  "lastName": "John"
+}
+
+###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "userId": "alice",
+  "password": "123"
+}
+
+###
+GET http://localhost:3000/courses
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhbGljZSIsImlhdCI6MTczNjQzOTEyNywiZXhwIjoxNzM2NDM5MTU3fQ.PMlBRlDUfdN71HBsSi07pDo-qY3qQ7HYQ16L-HS_JQ8
